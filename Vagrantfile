@@ -17,6 +17,9 @@ Vagrant.configure("2") do |config|
     config.vm.provision "file", source: "tmux.conf", destination: "/home/vagrant/.tmux.conf"
     config.vm.provision "file", source: "bash_aliases", destination: "/home/vagrant/.bash_aliases"
     config.vm.provision "shell", inline: <<-SHELL
+      sudo apt install tor proxychains -y
+      sudo systemctl start tor
+      sudo echo "alias myip='curl https://ipecho.net/plain; echo'" >> /home/vagrant/.zhrc
       sudo cp /home/vagrant/.tmux.conf /root/
       sudo cp /home/vagrant/.bash_aliases /root/
       sudo timedatectl set-timezone America/Sao_Paulo
